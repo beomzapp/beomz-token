@@ -9,8 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#0a0a0a",
+        foreground: "#ededed",
+        amber: {
+          500: "#F97316",
+          600: "#EA580C",
+        },
+        purple: {
+          500: "#534AB7",
+          600: "#4338A8",
+        },
+        card: "#111111",
+        border: "#222222",
       },
     },
   },
