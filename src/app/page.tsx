@@ -2,14 +2,22 @@
 
 import FadeIn from "@/components/FadeIn";
 import WaitlistForm from "@/components/WaitlistForm";
-import { CONTRACTS, BASESCAN_URL, TIERS, DISTRIBUTION, PHASES, LOCK_BONUSES } from "@/lib/constants";
+import HeroBlobs from "@/components/HeroBlobs";
+import FloatingParticles from "@/components/FloatingParticles";
+import GlowCard from "@/components/GlowCard";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import AnimatedWaterfall from "@/components/AnimatedWaterfall";
+import TokenDistributionChart from "@/components/TokenDistributionChart";
+import SectionDivider from "@/components/SectionDivider";
+import { CONTRACTS, BASESCAN_URL, TIERS, PHASES, LOCK_BONUSES } from "@/lib/constants";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const stats = [
-  { label: "Total Staked", value: "—" },
-  { label: "Weekly USDC Distributed", value: "—" },
-  { label: "Holders", value: "—" },
-  { label: "Token Price", value: "—" },
+  { label: "Total Staked", value: "—", prefix: "" },
+  { label: "Weekly USDC Distributed", value: "—", prefix: "$" },
+  { label: "Holders", value: "—", prefix: "" },
+  { label: "Token Price", value: "—", prefix: "$" },
 ];
 
 const competitors = [
@@ -21,113 +29,151 @@ const competitors = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/10 via-transparent to-[#534AB7]/10" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative">
+    <div className="min-h-screen bg-grid relative">
+      {/* ==================== HERO ==================== */}
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+        <HeroBlobs />
+        <FloatingParticles count={40} />
+
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a] pointer-events-none z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 relative z-20 w-full">
           <FadeIn>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-center text-balance leading-tight">
+            <motion.h1
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-center text-balance leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               Own a piece of everything{" "}
-              <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">
+              <motion.span
+                className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent bg-[length:200%_auto] text-shimmer"
+              >
                 Beomz builds.
-              </span>
-            </h1>
+              </motion.span>
+            </motion.h1>
           </FadeIn>
-          <FadeIn delay={0.1}>
-            <p className="text-lg md:text-xl text-gray-400 text-center mt-6 max-w-3xl mx-auto text-balance">
+
+          <FadeIn delay={0.15}>
+            <p className="text-lg md:text-xl text-gray-400 text-center mt-6 max-w-3xl mx-auto text-balance leading-relaxed">
               75% of all revenue from both products flows to $BEOMZ stakers.
               <br className="hidden sm:block" />
               Weekly. In USDC. On-chain. Automatically.
             </p>
           </FadeIn>
-          <FadeIn delay={0.2}>
+
+          <FadeIn delay={0.25}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-              <a
+              <motion.a
                 href="#waitlist"
-                className="bg-[#F97316] hover:bg-[#EA580C] text-black font-semibold px-8 py-3 rounded-lg text-lg transition-colors"
+                className="bg-[#F97316] hover:bg-[#EA580C] text-black font-semibold px-8 py-3.5 rounded-xl text-lg transition-colors btn-glow"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Buy $BEOMZ
-              </a>
-              <Link
-                href="/whitepaper"
-                className="border border-[#333] hover:border-[#555] text-white font-semibold px-8 py-3 rounded-lg text-lg transition-colors"
-              >
-                Read Whitepaper
-              </Link>
+              </motion.a>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/whitepaper"
+                  className="border border-[#333] hover:border-[#F97316]/30 text-white font-semibold px-8 py-3.5 rounded-xl text-lg transition-all duration-300 block"
+                >
+                  Read Whitepaper
+                </Link>
+              </motion.div>
             </div>
           </FadeIn>
 
           {/* Stat cards */}
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.35}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
               {stats.map((s) => (
-                <div key={s.label} className="bg-[#111] border border-[#222] rounded-2xl p-6 text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-white">{s.value}</p>
+                <GlowCard key={s.label} className="p-6 text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-white">
+                    <AnimatedCounter value={s.value} prefix={s.prefix} />
+                  </p>
                   <p className="text-sm text-gray-500 mt-1">{s.label}</p>
-                </div>
+                </GlowCard>
               ))}
             </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* Competitive Comparison */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== COMPETITIVE COMPARISON ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+        <FloatingParticles count={15} />
         <FadeIn>
-          <h2 className="text-3xl md:text-4xl font-bold text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-center relative z-10">
             The most generous revenue share in AI crypto.{" "}
-            <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">By far.</span>
+            <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+              By far.
+            </span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="mt-10 overflow-x-auto">
-            <table className="w-full min-w-[600px]">
-              <thead>
-                <tr className="border-b border-[#222]">
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Project</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Revenue Share</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Frequency</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Acq. Protection</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Wind-Down Protection</th>
-                </tr>
-              </thead>
-              <tbody>
-                {competitors.map((c) => (
-                  <tr
-                    key={c.name}
-                    className={`border-b border-[#222] ${c.name === "$BEOMZ" ? "bg-[#F97316]/5" : ""}`}
-                  >
-                    <td className={`py-4 px-4 font-semibold ${c.name === "$BEOMZ" ? "text-[#F97316]" : "text-white"}`}>
-                      {c.name}
-                    </td>
-                    <td className={`py-4 px-4 ${c.name === "$BEOMZ" ? "text-[#F97316] font-bold text-lg" : "text-gray-300"}`}>
-                      {c.share}
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">{c.freq}</td>
-                    <td className="py-4 px-4">
-                      {c.acq ? (
-                        <span className="text-green-400">On-chain</span>
-                      ) : (
-                        <span className="text-red-400">None</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-4">
-                      {c.wind ? (
-                        <span className="text-green-400">Stakers first</span>
-                      ) : (
-                        <span className="text-red-400">None</span>
-                      )}
-                    </td>
+          <div className="mt-12 overflow-x-auto relative z-10">
+            <div className="bg-[#111]/50 border border-[#222] rounded-2xl overflow-hidden backdrop-blur-sm">
+              <table className="w-full min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-[#222]">
+                    <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Project</th>
+                    <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Revenue Share</th>
+                    <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Frequency</th>
+                    <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Acq. Protection</th>
+                    <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Wind-Down Protection</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {competitors.map((c, i) => (
+                    <motion.tr
+                      key={c.name}
+                      className={`border-b border-[#222] last:border-0 ${c.name === "$BEOMZ" ? "bg-[#F97316]/5" : "hover:bg-white/[0.02]"}`}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                    >
+                      <td className={`py-4 px-6 font-semibold ${c.name === "$BEOMZ" ? "text-[#F97316]" : "text-white"}`}>
+                        {c.name}
+                      </td>
+                      <td className={`py-4 px-6 ${c.name === "$BEOMZ" ? "text-[#F97316] font-bold text-xl" : "text-gray-300"}`}>
+                        {c.share}
+                      </td>
+                      <td className="py-4 px-6 text-gray-300">{c.freq}</td>
+                      <td className="py-4 px-6">
+                        {c.acq ? (
+                          <span className="inline-flex items-center gap-1.5 text-green-400 text-sm">
+                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                            On-chain
+                          </span>
+                        ) : (
+                          <span className="text-red-400/60 text-sm">None</span>
+                        )}
+                      </td>
+                      <td className="py-4 px-6">
+                        {c.wind ? (
+                          <span className="inline-flex items-center gap-1.5 text-green-400 text-sm">
+                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                            Stakers first
+                          </span>
+                        ) : (
+                          <span className="text-red-400/60 text-sm">None</span>
+                        )}
+                      </td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111] border border-[#222] rounded-2xl p-6">
-            <p className="text-gray-400 text-sm leading-relaxed">
+          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent" />
+            <p className="text-gray-400 text-sm leading-relaxed relative z-10">
               This is not a marketing promise. It is code on Basescan.
               Anyone can verify every distribution, every protection, every clause.
             </p>
@@ -135,41 +181,56 @@ export default function HomePage() {
         </FadeIn>
       </section>
 
-      {/* Products */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== PRODUCTS ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Two Products. One Token.</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Two Products. One Token.</h2>
+          <p className="text-gray-500 text-center mb-12 text-sm">Both generating revenue that flows to you.</p>
         </FadeIn>
         <div className="grid md:grid-cols-2 gap-6">
           <FadeIn delay={0.1}>
-            <a
+            <motion.a
               href="https://beomz.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#111] border border-[#222] rounded-2xl p-8 hover:border-[#F97316]/50 transition-colors group"
+              className="block bg-[#111] border border-[#222] rounded-2xl p-8 relative overflow-hidden group"
+              whileHover={{ y: -4, borderColor: "rgba(249,115,22,0.3)" }}
+              transition={{ duration: 0.3 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-[#F97316]/10 flex items-center justify-center mb-4">
-                <div className="w-6 h-6 rounded bg-[#F97316]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#F97316]/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-[#F97316]/10 flex items-center justify-center mb-4 border border-[#F97316]/20">
+                  <div className="w-5 h-5 rounded bg-[#F97316]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#F97316]">Beomz Build</h3>
+                <p className="text-gray-400 mt-2">AI App Builder</p>
+                <p className="text-sm text-gray-600 mt-4 group-hover:text-[#F97316]/60 transition-colors">beomz.com &rarr;</p>
               </div>
-              <h3 className="text-xl font-bold text-[#F97316]">Beomz Build</h3>
-              <p className="text-gray-400 mt-2">AI App Builder</p>
-              <p className="text-sm text-gray-600 mt-4 group-hover:text-gray-400 transition-colors">beomz.com &rarr;</p>
-            </a>
+            </motion.a>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <a
+            <motion.a
               href="https://crypto.beomz.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#111] border border-[#222] rounded-2xl p-8 hover:border-[#534AB7]/50 transition-colors group"
+              className="block bg-[#111] border border-[#222] rounded-2xl p-8 relative overflow-hidden group"
+              whileHover={{ y: -4, borderColor: "rgba(83,74,183,0.3)" }}
+              transition={{ duration: 0.3 }}
             >
-              <div className="w-12 h-12 rounded-xl bg-[#534AB7]/10 flex items-center justify-center mb-4">
-                <div className="w-6 h-6 rounded bg-[#534AB7]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#534AB7]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#534AB7]/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-[#534AB7]/10 flex items-center justify-center mb-4 border border-[#534AB7]/20">
+                  <div className="w-5 h-5 rounded bg-[#534AB7]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#534AB7]">Beomz Crypto</h3>
+                <p className="text-gray-400 mt-2">AI Crypto Companion</p>
+                <p className="text-sm text-gray-600 mt-4 group-hover:text-[#534AB7]/60 transition-colors">crypto.beomz.com &rarr;</p>
               </div>
-              <h3 className="text-xl font-bold text-[#534AB7]">Beomz Crypto</h3>
-              <p className="text-gray-400 mt-2">AI Crypto Companion</p>
-              <p className="text-sm text-gray-600 mt-4 group-hover:text-gray-400 transition-colors">crypto.beomz.com &rarr;</p>
-            </a>
+            </motion.a>
           </FadeIn>
         </div>
         <FadeIn delay={0.3}>
@@ -179,48 +240,23 @@ export default function HomePage() {
         </FadeIn>
       </section>
 
-      {/* Revenue Waterfall */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== REVENUE WATERFALL ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
         <FadeIn>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">How Revenue Flows</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">How Revenue Flows</h2>
+          <p className="text-gray-500 text-center mb-12 text-sm">Fully automated. Fully transparent. On-chain.</p>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="max-w-2xl mx-auto">
-            <div className="flex flex-col items-center gap-4">
-              <div className="bg-[#111] border border-[#222] rounded-2xl p-6 w-full text-center">
-                <p className="text-sm text-gray-500">All Product Revenue</p>
-                <p className="text-lg font-bold text-white mt-1">Beomz Build + Beomz Crypto</p>
-              </div>
-              <div className="w-px h-8 bg-[#333]" />
-              <div className="bg-[#111] border border-[#222] rounded-2xl p-6 w-full text-center">
-                <p className="text-sm text-gray-500">BeomzTreasury Contract</p>
-                <p className="text-lg font-bold text-white mt-1">Threshold Check</p>
-              </div>
-              <div className="w-px h-8 bg-[#333]" />
-              <div className="grid grid-cols-3 gap-4 w-full">
-                <div className="bg-[#111] border border-[#F97316]/30 rounded-2xl p-5 text-center">
-                  <p className="text-2xl font-bold text-[#F97316]">50%</p>
-                  <p className="text-sm text-gray-400 mt-1">Stakers</p>
-                  <p className="text-xs text-gray-600 mt-1">USDC weekly</p>
-                </div>
-                <div className="bg-[#111] border border-[#222] rounded-2xl p-5 text-center">
-                  <p className="text-2xl font-bold text-white">25%</p>
-                  <p className="text-sm text-gray-400 mt-1">Founder</p>
-                  <p className="text-xs text-gray-600 mt-1">USDC</p>
-                </div>
-                <div className="bg-[#111] border border-[#534AB7]/30 rounded-2xl p-5 text-center">
-                  <p className="text-2xl font-bold text-[#534AB7]">25%</p>
-                  <p className="text-sm text-gray-400 mt-1">Buyback + Burn</p>
-                  <p className="text-xs text-gray-600 mt-1">Aerodrome DEX</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <AnimatedWaterfall />
         </FadeIn>
       </section>
 
-      {/* Phased Thresholds */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== PHASED THRESHOLDS ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center">
             Early stakers benefit from Phase 1 distributions.
@@ -231,65 +267,93 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-            {PHASES.map((p) => (
-              <div key={p.phase} className="bg-[#111] border border-[#222] rounded-2xl p-6 text-center">
+            {PHASES.map((p, i) => (
+              <GlowCard key={p.phase} className="p-6 text-center" glowColor={i < 2 ? "amber" : "purple"}>
                 <p className="text-sm text-gray-500">Phase {p.phase}</p>
-                <p className="text-2xl font-bold text-white mt-2">{p.threshold}</p>
+                <motion.p
+                  className="text-2xl font-bold text-white mt-2"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, type: "spring" }}
+                >
+                  {p.threshold}
+                </motion.p>
                 <p className="text-xs text-gray-600 mt-2">Days {p.days}</p>
-              </div>
+                {i === 0 && (
+                  <span className="inline-block mt-3 text-xs bg-[#F97316]/10 text-[#F97316] px-2 py-0.5 rounded-full">
+                    Active now
+                  </span>
+                )}
+              </GlowCard>
             ))}
           </div>
         </FadeIn>
       </section>
 
-      {/* Tier Table */}
-      <section id="tokenomics-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== TIER TABLE ==================== */}
+      <section id="tokenomics-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Holder Tiers</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[700px]">
-              <thead>
-                <tr className="border-b border-[#222]">
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Tier</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">$BEOMZ Required</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Build Discount</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Crypto Discount</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Staking APY</th>
-                  <th className="text-left py-4 px-4 text-sm text-gray-500 font-medium">Affiliate</th>
-                </tr>
-              </thead>
-              <tbody>
-                {TIERS.map((tier) => (
-                  <tr key={tier.name} className="border-b border-[#222] hover:bg-[#111]">
-                    <td className="py-4 px-4 font-semibold" style={{ color: tier.color }}>
-                      {tier.name}
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">{tier.tokens}</td>
-                    <td className="py-4 px-4 text-gray-300">{tier.buildDiscount} off</td>
-                    <td className="py-4 px-4 text-gray-300">
-                      {tier.cryptoDiscount === "FREE" ? (
-                        <span className="text-green-400 font-semibold">FREE</span>
-                      ) : (
-                        `${tier.cryptoDiscount} off`
-                      )}
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">
+          <div className="grid md:grid-cols-4 gap-4">
+            {TIERS.map((tier) => (
+              <GlowCard
+                key={tier.name}
+                className="p-6"
+                glowColor={tier.color === "#F97316" ? "amber" : "purple"}
+              >
+                <div className="text-center mb-4">
+                  <motion.div
+                    className="w-12 h-12 rounded-xl mx-auto flex items-center justify-center mb-3"
+                    style={{ backgroundColor: `${tier.color}15`, border: `1px solid ${tier.color}30` }}
+                    whileHover={{ rotate: 5, scale: 1.1 }}
+                  >
+                    <span className="font-bold text-sm" style={{ color: tier.color }}>
+                      {tier.name[0]}
+                    </span>
+                  </motion.div>
+                  <h3 className="font-bold text-lg" style={{ color: tier.color }}>{tier.name}</h3>
+                  <p className="text-2xl font-bold text-white mt-1">{tier.tokens}</p>
+                  <p className="text-xs text-gray-600">$BEOMZ required</p>
+                </div>
+
+                <div className="space-y-3 border-t border-[#222] pt-4">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Build</span>
+                    <span className="text-gray-300">{tier.buildDiscount} off</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Crypto</span>
+                    <span className={tier.cryptoDiscount === "FREE" ? "text-green-400 font-semibold" : "text-gray-300"}>
+                      {tier.cryptoDiscount === "FREE" ? "FREE" : `${tier.cryptoDiscount} off`}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">APY</span>
+                    <span className="text-white font-semibold">
                       {tier.apy}
                       {tier.apyNote && <span className="text-gray-500 text-xs ml-1">{tier.apyNote}</span>}
-                    </td>
-                    <td className="py-4 px-4 text-gray-300">{tier.affiliate}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Affiliate</span>
+                    <span className="text-gray-300">{tier.affiliate}</span>
+                  </div>
+                </div>
+              </GlowCard>
+            ))}
           </div>
         </FadeIn>
       </section>
 
-      {/* Affiliate Commissions */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== AFFILIATE COMMISSIONS ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center">
             Refer friends. Earn USDC monthly.
@@ -300,20 +364,29 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-            {TIERS.map((tier) => (
-              <div key={tier.name} className="bg-[#111] border border-[#222] rounded-2xl p-6 text-center">
+            {TIERS.map((tier, i) => (
+              <GlowCard key={tier.name} className="p-6 text-center" glowColor={tier.color === "#F97316" ? "amber" : "purple"}>
                 <p className="text-sm font-semibold" style={{ color: tier.color }}>
                   {tier.name}
                 </p>
-                <p className="text-3xl font-bold text-white mt-2">{tier.affiliate}</p>
+                <motion.p
+                  className="text-3xl font-bold text-white mt-2"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, type: "spring" }}
+                >
+                  {tier.affiliate}
+                </motion.p>
                 <p className="text-xs text-gray-600 mt-1">of referral revenue</p>
-              </div>
+              </GlowCard>
             ))}
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111] border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto">
-            <p className="text-sm text-gray-400">
+          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent" />
+            <p className="text-sm text-gray-400 relative z-10">
               <span className="text-white font-semibold">Example:</span> A Whale with 10 referrals on Pro ($49/mo) earns{" "}
               <span className="text-[#F97316] font-semibold">$73.50/month</span> in affiliate USDC — on top of staking APY
               and revenue share.
@@ -322,8 +395,10 @@ export default function HomePage() {
         </FadeIn>
       </section>
 
-      {/* Acquisition + Wind-Down Protection */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== ACQUISITION PROTECTION ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center max-w-3xl mx-auto">
             We cannot sell out from under you. It is in the contract.
@@ -331,52 +406,65 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
-              <div className="w-10 h-10 rounded-lg bg-[#F97316]/10 flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-[#F97316]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {[
+              {
+                icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-white">14-Day Public Notice</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                On-chain notice before any acquisition can proceed. No backroom deals.
-              </p>
-            </div>
-            <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
-              <div className="w-10 h-10 rounded-lg bg-[#534AB7]/10 flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-[#534AB7]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                ),
+                title: "14-Day Public Notice",
+                desc: "On-chain notice before any acquisition can proceed. No backroom deals.",
+                color: "amber" as const,
+                iconColor: "#F97316",
+              },
+              {
+                icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-white">Sentinel+ Voting</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                Sentinel and above holders vote on any acquisition or wind-down.
-              </p>
-            </div>
-            <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
-              <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                ),
+                title: "Sentinel+ Voting",
+                desc: "Sentinel and above holders vote on any acquisition or wind-down.",
+                color: "purple" as const,
+                iconColor: "#534AB7",
+              },
+              {
+                icon: (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-white">Stakers First</h3>
-              <p className="text-sm text-gray-400 mt-2">
-                100% of treasury USDC goes to stakers before founder in any wind-down.
-              </p>
-            </div>
+                ),
+                title: "Stakers First",
+                desc: "100% of treasury USDC goes to stakers before founder in any wind-down.",
+                color: "green" as const,
+                iconColor: "#22C55E",
+              },
+            ].map((item) => (
+              <GlowCard key={item.title} className="p-6" glowColor={item.color}>
+                <motion.div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${item.iconColor}15`, border: `1px solid ${item.iconColor}25` }}
+                  whileHover={{ rotate: 10 }}
+                >
+                  <svg className="w-5 h-5" style={{ color: item.iconColor }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {item.icon}
+                  </svg>
+                </motion.div>
+                <h3 className="font-semibold text-white">{item.title}</h3>
+                <p className="text-sm text-gray-400 mt-2">{item.desc}</p>
+              </GlowCard>
+            ))}
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111] border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto">
-            <p className="text-gray-400 text-sm">
+          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-500/3 to-transparent" />
+            <p className="text-gray-400 text-sm relative z-10">
               No other AI token has these protections. Check our contract. Then check theirs.
             </p>
           </div>
         </FadeIn>
       </section>
 
-      {/* Staking APY */}
-      <section id="staking-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== STAKING APY ==================== */}
+      <section id="staking-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Staking APY + Lock Bonuses</h2>
           <p className="text-gray-400 text-center max-w-xl mx-auto">
@@ -385,53 +473,50 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-            {LOCK_BONUSES.map((lb) => (
-              <div key={lb.period} className="bg-[#111] border border-[#222] rounded-2xl p-6 text-center">
+            {LOCK_BONUSES.map((lb, i) => (
+              <GlowCard key={lb.period} className="p-6 text-center">
                 <p className="text-sm text-gray-500">{lb.period}</p>
-                <p className="text-2xl font-bold text-[#F97316] mt-2">{lb.bonus}</p>
+                <motion.p
+                  className="text-3xl font-bold text-[#F97316] mt-2"
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, type: "spring" }}
+                >
+                  {lb.bonus}
+                </motion.p>
                 <p className="text-xs text-gray-600 mt-1">APY bonus</p>
-              </div>
+              </GlowCard>
             ))}
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
           <div className="text-center mt-8">
-            <Link
-              href="/staking"
-              className="text-[#F97316] hover:text-[#EA580C] font-semibold text-sm transition-colors"
-            >
-              See full staking guide + APY calculator &rarr;
-            </Link>
+            <motion.div className="inline-block" whileHover={{ x: 5 }}>
+              <Link
+                href="/staking"
+                className="text-[#F97316] hover:text-[#EA580C] font-semibold text-sm transition-colors inline-flex items-center gap-1"
+              >
+                See full staking guide + APY calculator
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </motion.div>
           </div>
         </FadeIn>
       </section>
 
-      {/* Token Distribution */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== TOKEN DISTRIBUTION ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Token Distribution</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="max-w-2xl mx-auto space-y-4">
-            {DISTRIBUTION.map((d) => (
-              <div key={d.label} className="flex items-center gap-4">
-                <div className="w-16 text-right">
-                  <span className="text-lg font-bold text-white">{d.pct}%</span>
-                </div>
-                <div className="flex-1">
-                  <div className="h-8 bg-[#111] rounded-lg overflow-hidden border border-[#222]">
-                    <div
-                      className="h-full rounded-lg bg-gradient-to-r from-[#F97316] to-[#534AB7]"
-                      style={{ width: `${d.pct * 2.5}%` }}
-                    />
-                  </div>
-                </div>
-                <div className="w-48">
-                  <p className="text-sm font-semibold text-white">{d.label}</p>
-                  <p className="text-xs text-gray-500">{d.amount} &mdash; {d.detail}</p>
-                </div>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto bg-[#111]/50 border border-[#222] rounded-2xl p-8 backdrop-blur-sm">
+            <TokenDistributionChart />
           </div>
           <p className="text-center text-gray-500 text-sm mt-8">
             Total supply: 500,000,000 $BEOMZ (hard cap, no additional minting)
@@ -439,8 +524,10 @@ export default function HomePage() {
         </FadeIn>
       </section>
 
-      {/* Contract Addresses */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== CONTRACT ADDRESSES ==================== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Verified Contracts</h2>
           <p className="text-gray-500 text-center text-sm mb-12">
@@ -449,45 +536,76 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="max-w-2xl mx-auto space-y-3">
-            {Object.entries(CONTRACTS).map(([name, addr]) => (
-              <a
+            {Object.entries(CONTRACTS).map(([name, addr], i) => (
+              <motion.a
                 key={name}
                 href={`${BASESCAN_URL}/${addr}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-colors group"
+                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ x: 4 }}
               >
-                <span className="text-sm font-semibold text-white">{name}</span>
-                <span className="text-xs text-gray-500 font-mono group-hover:text-gray-300 transition-colors truncate ml-4">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="text-sm font-semibold text-white relative z-10">{name}</span>
+                <span className="text-xs text-gray-500 font-mono group-hover:text-gray-300 transition-colors truncate ml-4 relative z-10">
                   {addr}
                 </span>
-              </a>
+              </motion.a>
             ))}
           </div>
         </FadeIn>
       </section>
 
-      {/* Roadmap preview */}
-      <section id="roadmap-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== ROADMAP PREVIEW ==================== */}
+      <section id="roadmap-preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Roadmap</h2>
           <p className="text-center mt-2">
-            <Link href="/roadmap" className="text-[#F97316] hover:text-[#EA580C] font-semibold text-sm transition-colors">
-              View full roadmap &rarr;
-            </Link>
+            <motion.div className="inline-block" whileHover={{ x: 5 }}>
+              <Link href="/roadmap" className="text-[#F97316] hover:text-[#EA580C] font-semibold text-sm transition-colors inline-flex items-center gap-1">
+                View full roadmap
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </motion.div>
           </p>
         </FadeIn>
       </section>
 
-      {/* Waitlist */}
-      <section id="waitlist" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <SectionDivider />
+
+      {/* ==================== WAITLIST ==================== */}
+      <section id="waitlist" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+        <FloatingParticles count={20} />
         <FadeIn>
-          <div className="bg-gradient-to-br from-[#F97316]/5 to-[#534AB7]/5 border border-[#222] rounded-2xl p-8 md:p-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Get notified when $BEOMZ launches
-            </h2>
-            <p className="text-gray-400 mt-2 mb-8">May 1, 2026</p>
-            <WaitlistForm />
+          <div className="bg-gradient-to-br from-[#F97316]/5 via-[#111] to-[#534AB7]/5 border border-[#222] rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+            {/* Background glow */}
+            <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#F97316]/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#534AB7]/5 rounded-full blur-3xl" />
+
+            <div className="relative z-10">
+              <motion.h2
+                className="text-3xl md:text-4xl font-bold"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                Get notified when{" "}
+                <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">
+                  $BEOMZ
+                </span>{" "}
+                launches
+              </motion.h2>
+              <p className="text-gray-400 mt-2 mb-8">May 1, 2026</p>
+              <WaitlistForm />
+            </div>
           </div>
         </FadeIn>
       </section>

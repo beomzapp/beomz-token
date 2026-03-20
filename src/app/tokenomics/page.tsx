@@ -1,7 +1,12 @@
 "use client";
 
 import FadeIn from "@/components/FadeIn";
-import { CONTRACTS, BASESCAN_URL, DISTRIBUTION } from "@/lib/constants";
+import GlowCard from "@/components/GlowCard";
+import HeroBlobs from "@/components/HeroBlobs";
+import SectionDivider from "@/components/SectionDivider";
+import TokenDistributionChart from "@/components/TokenDistributionChart";
+import { CONTRACTS, BASESCAN_URL } from "@/lib/constants";
+import { motion } from "framer-motion";
 
 const tokenSpecs = [
   { label: "Ticker", value: "$BEOMZ" },
@@ -30,184 +35,200 @@ const milestoneTranches = [
 
 export default function TokenomicsPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-grid">
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-bold text-center">
-            <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">
-              Tokenomics
-            </span>
-          </h1>
-          <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
-            Everything you need to know about $BEOMZ token economics, distribution, and vesting.
-          </p>
-        </FadeIn>
+      <section className="relative overflow-hidden">
+        <HeroBlobs />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+          <FadeIn>
+            <h1 className="text-4xl md:text-5xl font-bold text-center">
+              <span className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+                Tokenomics
+              </span>
+            </h1>
+            <p className="text-gray-400 text-center mt-4 max-w-2xl mx-auto">
+              Everything you need to know about $BEOMZ token economics, distribution, and vesting.
+            </p>
+          </FadeIn>
+        </div>
       </section>
 
+      <SectionDivider />
+
       {/* Token Specs */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Token Specifications</h2>
-          <div className="bg-[#111] border border-[#222] rounded-2xl overflow-hidden">
+          <div className="bg-[#111]/50 border border-[#222] rounded-2xl overflow-hidden backdrop-blur-sm">
             {tokenSpecs.map((spec, i) => (
-              <div
+              <motion.div
                 key={spec.label}
-                className={`flex justify-between items-center px-6 py-4 ${i < tokenSpecs.length - 1 ? "border-b border-[#222]" : ""}`}
+                className={`flex justify-between items-center px-6 py-4 ${i < tokenSpecs.length - 1 ? "border-b border-[#1a1a1a]" : ""} hover:bg-white/[0.02] transition-colors`}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
               >
                 <span className="text-gray-400 text-sm">{spec.label}</span>
                 <span className="text-white font-semibold text-sm">{spec.value}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </FadeIn>
       </section>
+
+      <SectionDivider />
 
       {/* Distribution */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Token Distribution</h2>
-          <div className="space-y-4">
-            {DISTRIBUTION.map((d) => (
-              <div key={d.label} className="bg-[#111] border border-[#222] rounded-2xl p-6">
-                <div className="flex justify-between items-center mb-3">
-                  <div>
-                    <span className="text-white font-semibold">{d.label}</span>
-                    <span className="text-gray-500 text-sm ml-3">{d.amount} tokens</span>
-                  </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">
-                    {d.pct}%
-                  </span>
-                </div>
-                <div className="h-3 bg-[#0a0a0a] rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#F97316] to-[#534AB7]"
-                    style={{ width: `${d.pct * 2.5}%` }}
-                  />
-                </div>
-                <p className="text-xs text-gray-500 mt-2">{d.detail}</p>
-              </div>
-            ))}
+          <div className="bg-[#111]/50 border border-[#222] rounded-2xl p-8 backdrop-blur-sm">
+            <TokenDistributionChart />
           </div>
         </FadeIn>
       </section>
 
+      <SectionDivider />
+
       {/* Vesting Schedule */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
-          <h2 className="text-2xl font-bold mb-8">Founder Vesting Schedule</h2>
+          <h2 className="text-2xl font-bold mb-4">Founder Vesting Schedule</h2>
           <p className="text-gray-400 text-sm mb-8">
             100M tokens vested over 4 years with a 1-year cliff. Broken into time-based, milestone-based, and linear tranches.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Time tranches */}
-            <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
+            <GlowCard className="p-6" glowColor="amber">
               <h3 className="text-lg font-semibold text-[#F97316] mb-4">Time-Based Tranches</h3>
               <div className="space-y-3">
-                {timeTranches.map((t) => (
-                  <div key={t.milestone} className="flex justify-between items-center">
+                {timeTranches.map((t, i) => (
+                  <motion.div
+                    key={t.milestone}
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                  >
                     <span className="text-gray-400 text-sm">{t.milestone}</span>
                     <span className="text-white font-semibold text-sm">{t.amount} $BEOMZ</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
               <div className="border-t border-[#222] mt-4 pt-4 flex justify-between">
                 <span className="text-gray-500 text-sm">Total</span>
                 <span className="text-white font-bold">25M $BEOMZ</span>
               </div>
-            </div>
+            </GlowCard>
 
-            {/* Milestone tranches */}
-            <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
+            <GlowCard className="p-6" glowColor="purple">
               <h3 className="text-lg font-semibold text-[#534AB7] mb-4">Milestone-Based Tranches</h3>
               <div className="space-y-3">
-                {milestoneTranches.map((t) => (
-                  <div key={t.milestone} className="flex justify-between items-center">
+                {milestoneTranches.map((t, i) => (
+                  <motion.div
+                    key={t.milestone}
+                    className="flex justify-between items-center"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                  >
                     <span className="text-gray-400 text-sm">{t.milestone}</span>
                     <span className="text-white font-semibold text-sm">{t.amount} $BEOMZ</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
               <div className="border-t border-[#222] mt-4 pt-4 flex justify-between">
                 <span className="text-gray-500 text-sm">Total</span>
                 <span className="text-white font-bold">40M $BEOMZ</span>
               </div>
-            </div>
+            </GlowCard>
           </div>
 
-          {/* Linear */}
-          <div className="bg-[#111] border border-[#222] rounded-2xl p-6 mt-6">
+          <GlowCard className="p-6 mt-6">
             <h3 className="text-lg font-semibold text-white mb-2">Linear Vesting</h3>
             <p className="text-gray-400 text-sm">
               35M $BEOMZ vested linearly over months 13 through 48. Approximately 972K tokens released per month.
             </p>
-          </div>
+            <div className="mt-4 h-3 bg-[#0a0a0a] rounded-full overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-[#F97316] to-[#534AB7]"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 2, ease: "easeOut" }}
+              />
+            </div>
+            <div className="flex justify-between mt-2 text-xs text-gray-600">
+              <span>Month 13</span>
+              <span>Month 48</span>
+            </div>
+          </GlowCard>
         </FadeIn>
       </section>
+
+      <SectionDivider />
 
       {/* Burn Mechanism */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Buyback + Burn Mechanism</h2>
-          <div className="bg-[#111] border border-[#222] rounded-2xl p-6">
+          <GlowCard className="p-6" glowColor="purple">
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[#534AB7] text-sm font-bold">1</span>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  25% of all revenue that exceeds the treasury threshold is allocated to buyback and burn.
-                </p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[#534AB7] text-sm font-bold">2</span>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  $BEOMZ tokens are bought on Aerodrome DEX at market price.
-                </p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[#534AB7] text-sm font-bold">3</span>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  Purchased tokens are sent to a burn address — removed from circulation forever.
-                </p>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[#534AB7] text-sm font-bold">4</span>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  This creates continuous deflationary pressure, increasing the value of remaining tokens over time.
-                </p>
-              </div>
+              {[
+                "25% of all revenue that exceeds the treasury threshold is allocated to buyback and burn.",
+                "$BEOMZ tokens are bought on Aerodrome DEX at market price.",
+                "Purchased tokens are sent to a burn address — removed from circulation forever.",
+                "This creates continuous deflationary pressure, increasing the value of remaining tokens over time.",
+              ].map((text, i) => (
+                <motion.div
+                  key={i}
+                  className="flex items-start gap-4"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 border border-[#534AB7]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-[#534AB7] text-sm font-bold">{i + 1}</span>
+                  </div>
+                  <p className="text-gray-400 text-sm">{text}</p>
+                </motion.div>
+              ))}
             </div>
-          </div>
+          </GlowCard>
         </FadeIn>
       </section>
 
+      <SectionDivider />
+
       {/* Contract Addresses */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-24">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-24">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-4">Contract Addresses</h2>
           <p className="text-gray-500 text-sm mb-8">Base Sepolia Testnet — Mainnet addresses coming April 15</p>
           <div className="space-y-3">
-            {Object.entries(CONTRACTS).map(([name, addr]) => (
-              <a
+            {Object.entries(CONTRACTS).map(([name, addr], i) => (
+              <motion.a
                 key={name}
                 href={`${BASESCAN_URL}/${addr}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-colors group"
+                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ x: 4 }}
               >
-                <span className="text-sm font-semibold text-white">{name}</span>
-                <span className="text-xs text-gray-500 font-mono group-hover:text-gray-300 transition-colors truncate ml-4">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="text-sm font-semibold text-white relative z-10">{name}</span>
+                <span className="text-xs text-gray-500 font-mono group-hover:text-gray-300 transition-colors truncate ml-4 relative z-10">
                   {addr}
                 </span>
-              </a>
+              </motion.a>
             ))}
           </div>
         </FadeIn>
