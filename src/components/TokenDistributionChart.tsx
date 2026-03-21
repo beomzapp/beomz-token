@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { DISTRIBUTION } from "@/lib/constants";
 
-const COLORS = ["#F97316", "#FB923C", "#534AB7", "#7C6FD0", "#666"];
+const COLORS = ["#F97316", "#EA580C", "#FB923C", "#FDBA74", "#FED7AA"];
 
 export default function TokenDistributionChart() {
   const ref = useRef(null);

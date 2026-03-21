@@ -38,7 +38,7 @@ export default function WaitlistForm() {
     <div>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
         <div className="flex-1 relative group">
-          <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-[#F97316]/20 to-[#534AB7]/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 blur-sm" />
+          <div className="absolute -inset-px rounded-xl bg-gradient-to-r from-[#F97316]/20 to-[#EA580C]/20 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 blur-sm" />
           <input
             type="email"
             value={email}
@@ -51,7 +51,7 @@ export default function WaitlistForm() {
         <motion.button
           type="submit"
           disabled={status === "loading"}
-          className="bg-[#F97316] hover:bg-[#EA580C] text-black font-semibold px-6 py-3.5 rounded-xl transition-colors disabled:opacity-50 btn-glow"
+          className="bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold px-6 py-3.5 rounded-xl transition-colors disabled:opacity-50 btn-glow"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
         >

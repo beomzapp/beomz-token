@@ -69,7 +69,7 @@ function APYCalculator() {
   const totalStakedAssumption = 50_000_000;
 
   return (
-    <div className="bg-[#111]/50 border border-[#222] rounded-2xl p-6 md:p-8 backdrop-blur-sm relative overflow-hidden">
+    <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8 backdrop-blur-sm relative overflow-hidden">
       {/* Subtle glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#F97316]/3 rounded-full blur-3xl pointer-events-none" />
 
@@ -109,7 +109,7 @@ function APYCalculator() {
                 onClick={() => setLockDays(opt.days)}
                 className={`px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                   lockDays === opt.days
-                    ? "bg-[#F97316] text-black btn-glow"
+                    ? "bg-[#F97316] text-white btn-glow"
                     : "bg-[#0a0a0a] border border-[#333] text-gray-400 hover:border-[#555]"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -124,7 +124,7 @@ function APYCalculator() {
 
       {/* Results */}
       <div className="mt-8 grid grid-cols-3 gap-4 relative z-10">
-        <GlowCard className="p-4 text-center" glowColor={tier ? (tier.color === "#F97316" ? "amber" : "purple") : "amber"}>
+        <GlowCard className="p-4 text-center" glowColor="amber">
           <p className="text-xs text-gray-500">Tier</p>
           <p className="text-lg font-bold" style={{ color: tier?.color || "#666" }}>
             {tier?.name || "Below min"}
@@ -189,7 +189,7 @@ export default function StakingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <FadeIn>
             <h1 className="text-4xl md:text-5xl font-bold text-center">
-              <span className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+              <span className="text-[#F97316]">
                 How to Stake
               </span>
             </h1>
@@ -217,7 +217,7 @@ export default function StakingPage() {
               >
                 <GlowCard className="p-6 flex items-start gap-4">
                   <motion.div
-                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#F97316] to-[#534AB7] flex items-center justify-center shrink-0"
+                    className="w-12 h-12 rounded-xl bg-[#F97316] flex items-center justify-center shrink-0"
                     whileHover={{ rotate: 10, scale: 1.1 }}
                   >
                     <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -279,7 +279,7 @@ export default function StakingPage() {
           <h2 className="text-2xl font-bold mb-8">Base APY by Tier</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {TIERS.map((tier, i) => (
-              <GlowCard key={tier.name} className="p-6 text-center" glowColor={tier.color === "#F97316" ? "amber" : "purple"}>
+              <GlowCard key={tier.name} className="p-6 text-center" glowColor="amber">
                 <p className="text-sm font-semibold" style={{ color: tier.color }}>
                   {tier.name}
                 </p>

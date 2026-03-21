@@ -10,7 +10,7 @@ export default function GlowCard({
 }: {
   children: ReactNode;
   className?: string;
-  glowColor?: "amber" | "purple" | "green";
+  glowColor?: "amber" | "green";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -18,13 +18,11 @@ export default function GlowCard({
 
   const colorMap = {
     amber: "rgba(249,115,22,0.08)",
-    purple: "rgba(83,74,183,0.08)",
     green: "rgba(34,197,94,0.08)",
   };
 
   const borderColorMap = {
     amber: "rgba(249,115,22,0.2)",
-    purple: "rgba(83,74,183,0.2)",
     green: "rgba(34,197,94,0.2)",
   };
 
@@ -40,7 +38,7 @@ export default function GlowCard({
   return (
     <motion.div
       ref={ref}
-      className={`relative bg-[#111] border border-[#222] rounded-2xl overflow-hidden transition-colors duration-300 ${className}`}
+      className={`relative bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden transition-colors duration-300 ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

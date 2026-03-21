@@ -42,7 +42,7 @@ export default function TokenomicsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <FadeIn>
             <h1 className="text-4xl md:text-5xl font-bold text-center">
-              <span className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+              <span className="text-[#F97316]">
                 Tokenomics
               </span>
             </h1>
@@ -59,11 +59,11 @@ export default function TokenomicsPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Token Specifications</h2>
-          <div className="bg-[#111]/50 border border-[#222] rounded-2xl overflow-hidden backdrop-blur-sm">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden backdrop-blur-sm">
             {tokenSpecs.map((spec, i) => (
               <motion.div
                 key={spec.label}
-                className={`flex justify-between items-center px-6 py-4 ${i < tokenSpecs.length - 1 ? "border-b border-[#1a1a1a]" : ""} hover:bg-white/[0.02] transition-colors`}
+                className={`flex justify-between items-center px-6 py-4 ${i < tokenSpecs.length - 1 ? "border-b border-white/[0.08]" : ""} hover:bg-white/[0.02] transition-colors`}
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -83,7 +83,7 @@ export default function TokenomicsPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Token Distribution</h2>
-          <div className="bg-[#111]/50 border border-[#222] rounded-2xl p-8 backdrop-blur-sm">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-8 backdrop-blur-sm">
             <TokenDistributionChart />
           </div>
         </FadeIn>
@@ -117,14 +117,14 @@ export default function TokenomicsPage() {
                   </motion.div>
                 ))}
               </div>
-              <div className="border-t border-[#222] mt-4 pt-4 flex justify-between">
+              <div className="border-t border-white/[0.08] mt-4 pt-4 flex justify-between">
                 <span className="text-gray-500 text-sm">Total</span>
                 <span className="text-white font-bold">25M $BEOMZ</span>
               </div>
             </GlowCard>
 
-            <GlowCard className="p-6" glowColor="purple">
-              <h3 className="text-lg font-semibold text-[#534AB7] mb-4">Milestone-Based Tranches</h3>
+            <GlowCard className="p-6" glowColor="amber">
+              <h3 className="text-lg font-semibold text-[#F97316] mb-4">Milestone-Based Tranches</h3>
               <div className="space-y-3">
                 {milestoneTranches.map((t, i) => (
                   <motion.div
@@ -140,7 +140,7 @@ export default function TokenomicsPage() {
                   </motion.div>
                 ))}
               </div>
-              <div className="border-t border-[#222] mt-4 pt-4 flex justify-between">
+              <div className="border-t border-white/[0.08] mt-4 pt-4 flex justify-between">
                 <span className="text-gray-500 text-sm">Total</span>
                 <span className="text-white font-bold">40M $BEOMZ</span>
               </div>
@@ -154,7 +154,7 @@ export default function TokenomicsPage() {
             </p>
             <div className="mt-4 h-3 bg-[#0a0a0a] rounded-full overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-[#F97316] to-[#534AB7]"
+                className="h-full rounded-full bg-[#F97316]"
                 initial={{ width: 0 }}
                 whileInView={{ width: "100%" }}
                 viewport={{ once: true }}
@@ -175,7 +175,7 @@ export default function TokenomicsPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-2xl font-bold mb-8">Buyback + Burn Mechanism</h2>
-          <GlowCard className="p-6" glowColor="purple">
+          <GlowCard className="p-6" glowColor="amber">
             <div className="space-y-4">
               {[
                 "25% of all revenue that exceeds the treasury threshold is allocated to buyback and burn.",
@@ -191,8 +191,8 @@ export default function TokenomicsPage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[#534AB7]/10 border border-[#534AB7]/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-[#534AB7] text-sm font-bold">{i + 1}</span>
+                  <div className="w-8 h-8 rounded-lg bg-[#F97316]/10 border border-[#F97316]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-[#F97316] text-sm font-bold">{i + 1}</span>
                   </div>
                   <p className="text-gray-400 text-sm">{text}</p>
                 </motion.div>
@@ -216,7 +216,7 @@ export default function TokenomicsPage() {
                 href={`${BASESCAN_URL}/${addr}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
+                className="flex items-center justify-between bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

@@ -29,7 +29,7 @@ export default function FloatingParticles({ count = 30 }: { count?: number }) {
             height: p.size,
             backgroundColor: p.isAmber
               ? "rgba(249,115,22,0.3)"
-              : "rgba(83,74,183,0.3)",
+              : "rgba(234,88,12,0.3)",
           }}
           animate={{
             y: [0, -30, 10, -20, 0],

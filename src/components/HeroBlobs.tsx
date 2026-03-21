@@ -24,11 +24,11 @@ export default function HeroBlobs() {
         }}
       />
 
-      {/* Purple blob - bottom left */}
+      {/* Orange blob - bottom left */}
       <motion.div
         className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full opacity-[0.07]"
         style={{
-          background: "radial-gradient(circle at center, #534AB7, transparent 70%)",
+          background: "radial-gradient(circle at center, rgba(249,115,22,0.8), transparent 70%)",
           filter: "blur(80px)",
         }}
         animate={{
@@ -61,11 +61,11 @@ export default function HeroBlobs() {
         }}
       />
 
-      {/* Small purple accent - center right */}
+      {/* Small orange accent - center right */}
       <motion.div
         className="absolute top-1/2 right-1/4 w-[250px] h-[250px] rounded-full opacity-[0.04]"
         style={{
-          background: "radial-gradient(circle at center, #534AB7, transparent 70%)",
+          background: "radial-gradient(circle at center, rgba(249,115,22,0.6), transparent 70%)",
           filter: "blur(60px)",
         }}
         animate={{

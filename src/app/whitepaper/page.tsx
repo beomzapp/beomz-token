@@ -17,7 +17,7 @@ export default function WhitepaperPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <FadeIn>
             <h1 className="text-4xl md:text-5xl font-bold text-center">
-              <span className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+              <span className="text-[#F97316]">
                 Whitepaper
               </span>
             </h1>
@@ -26,7 +26,7 @@ export default function WhitepaperPage() {
             </p>
             <div className="flex justify-center mt-8">
               <motion.button
-                className="bg-[#F97316] hover:bg-[#EA580C] text-black font-semibold px-8 py-3.5 rounded-xl transition-colors btn-glow"
+                className="bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold px-8 py-3.5 rounded-xl transition-colors btn-glow"
                 onClick={() => alert("PDF coming soon — full whitepaper will be available before launch.")}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -62,7 +62,7 @@ export default function WhitepaperPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <FadeIn>
           <h2 className="text-xl font-bold text-white mb-6">Token Specifications</h2>
-          <div className="bg-[#111]/50 border border-[#222] rounded-2xl overflow-hidden backdrop-blur-sm">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden backdrop-blur-sm">
             {[
               ["Ticker", "$BEOMZ"],
               ["Network", "Base (Ethereum L2)"],
@@ -72,7 +72,7 @@ export default function WhitepaperPage() {
             ].map(([k, v], i, arr) => (
               <motion.div
                 key={k}
-                className={`flex justify-between px-6 py-4 ${i < arr.length - 1 ? "border-b border-[#1a1a1a]" : ""} hover:bg-white/[0.02] transition-colors`}
+                className={`flex justify-between px-6 py-4 ${i < arr.length - 1 ? "border-b border-white/[0.08]" : ""} hover:bg-white/[0.02] transition-colors`}
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -94,11 +94,11 @@ export default function WhitepaperPage() {
           <h2 className="text-xl font-bold text-white mb-6">Holder Tiers</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {TIERS.map((t) => (
-              <GlowCard key={t.name} className="p-5 text-center" glowColor={t.color === "#F97316" ? "amber" : "purple"}>
+              <GlowCard key={t.name} className="p-5 text-center" glowColor="amber">
                 <p className="text-sm font-bold" style={{ color: t.color }}>{t.name}</p>
                 <p className="text-lg font-bold text-white mt-1">{t.tokens}</p>
                 <p className="text-xs text-gray-600 mt-1">$BEOMZ required</p>
-                <div className="border-t border-[#222] mt-3 pt-3 space-y-1">
+                <div className="border-t border-white/[0.08] mt-3 pt-3 space-y-1">
                   <p className="text-xs text-gray-400">APY: <span className="text-white font-semibold">{t.apy}</span></p>
                   <p className="text-xs text-gray-400">Affiliate: <span className="text-white font-semibold">{t.affiliate}</span></p>
                 </div>
@@ -121,7 +121,7 @@ export default function WhitepaperPage() {
                 {[
                   { pct: "50%", label: "Stakers", sub: "USDC weekly", color: "#F97316" },
                   { pct: "25%", label: "Founder", sub: "USDC", color: "#fff" },
-                  { pct: "25%", label: "Buyback + Burn", sub: "Aerodrome DEX", color: "#534AB7" },
+                  { pct: "25%", label: "Buyback + Burn", sub: "Aerodrome DEX", color: "#EA580C" },
                 ].map((item, i) => (
                   <div key={item.label} className="text-center">
                     <motion.p
@@ -174,7 +174,7 @@ export default function WhitepaperPage() {
             {DISTRIBUTION.map((d, i) => (
               <motion.div
                 key={d.label}
-                className={`flex justify-between items-center py-3 ${i < DISTRIBUTION.length - 1 ? "border-b border-[#1a1a1a]" : ""}`}
+                className={`flex justify-between items-center py-3 ${i < DISTRIBUTION.length - 1 ? "border-b border-white/[0.08]" : ""}`}
                 initial={{ opacity: 0, x: -10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

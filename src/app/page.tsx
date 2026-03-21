@@ -31,10 +31,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-grid relative">
       {/* ==================== HERO ==================== */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center" style={{ background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%)" }}>
         <HeroBlobs />
         <FloatingParticles count={40} />
 
+        {/* Radial orange glow behind heading */}
+        <div className="absolute inset-0 pointer-events-none z-10" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(249,115,22,0.08) 0%, transparent 60%)" }} />
         {/* Grid overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a] pointer-events-none z-10" />
 
@@ -47,11 +49,9 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
             >
               Own a piece of everything{" "}
-              <motion.span
-                className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent bg-[length:200%_auto] text-shimmer"
-              >
+              <span className="text-[#F97316]">
                 Beomz builds.
-              </motion.span>
+              </span>
             </motion.h1>
           </FadeIn>
 
@@ -67,7 +67,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
               <motion.a
                 href="#waitlist"
-                className="bg-[#F97316] hover:bg-[#EA580C] text-black font-semibold px-8 py-3.5 rounded-xl text-lg transition-colors btn-glow"
+                className="bg-[#F97316] hover:bg-[#EA580C] text-white font-semibold px-8 py-3.5 rounded-xl text-lg transition-colors btn-glow"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -108,17 +108,17 @@ export default function HomePage() {
         <FadeIn>
           <h2 className="text-3xl md:text-4xl font-bold text-center relative z-10">
             The most generous revenue share in AI crypto.{" "}
-            <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+            <span className="text-[#F97316]">
               By far.
             </span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.1}>
           <div className="mt-12 overflow-x-auto relative z-10">
-            <div className="bg-[#111]/50 border border-[#222] rounded-2xl overflow-hidden backdrop-blur-sm">
+            <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden backdrop-blur-sm">
               <table className="w-full min-w-[600px]">
                 <thead>
-                  <tr className="border-b border-[#222]">
+                  <tr className="border-b border-white/[0.08]">
                     <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Project</th>
                     <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Revenue Share</th>
                     <th className="text-left py-4 px-6 text-sm text-gray-500 font-medium">Frequency</th>
@@ -130,7 +130,7 @@ export default function HomePage() {
                   {competitors.map((c, i) => (
                     <motion.tr
                       key={c.name}
-                      className={`border-b border-[#222] last:border-0 ${c.name === "$BEOMZ" ? "bg-[#F97316]/5" : "hover:bg-white/[0.02]"}`}
+                      className={`border-b border-white/[0.08] last:border-0 ${c.name === "$BEOMZ" ? "bg-[#F97316]/5" : "hover:bg-white/[0.02]"}`}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -171,7 +171,7 @@ export default function HomePage() {
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden">
+          <div className="mt-8 bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent" />
             <p className="text-gray-400 text-sm leading-relaxed relative z-10">
               This is not a marketing promise. It is code on Basescan.
@@ -195,7 +195,7 @@ export default function HomePage() {
               href="https://beomz.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#111] border border-[#222] rounded-2xl p-8 relative overflow-hidden group"
+              className="block bg-white/[0.04] border border-white/[0.08] rounded-2xl p-8 relative overflow-hidden group"
               whileHover={{ y: -4, borderColor: "rgba(249,115,22,0.3)" }}
               transition={{ duration: 0.3 }}
             >
@@ -216,19 +216,19 @@ export default function HomePage() {
               href="https://crypto.beomz.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-[#111] border border-[#222] rounded-2xl p-8 relative overflow-hidden group"
-              whileHover={{ y: -4, borderColor: "rgba(83,74,183,0.3)" }}
+              className="block bg-white/[0.04] border border-white/[0.08] rounded-2xl p-8 relative overflow-hidden group"
+              whileHover={{ y: -4, borderColor: "rgba(249,115,22,0.3)" }}
               transition={{ duration: 0.3 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#534AB7]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#534AB7]/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#F97316]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#F97316]/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-[#534AB7]/10 flex items-center justify-center mb-4 border border-[#534AB7]/20">
-                  <div className="w-5 h-5 rounded bg-[#534AB7]" />
+                <div className="w-12 h-12 rounded-xl bg-[#F97316]/10 flex items-center justify-center mb-4 border border-[#F97316]/20">
+                  <div className="w-5 h-5 rounded bg-[#F97316]" />
                 </div>
-                <h3 className="text-xl font-bold text-[#534AB7]">Beomz Crypto</h3>
+                <h3 className="text-xl font-bold text-[#F97316]">Beomz Crypto</h3>
                 <p className="text-gray-400 mt-2">AI Crypto Companion</p>
-                <p className="text-sm text-gray-600 mt-4 group-hover:text-[#534AB7]/60 transition-colors">crypto.beomz.com &rarr;</p>
+                <p className="text-sm text-gray-600 mt-4 group-hover:text-[#F97316]/60 transition-colors">crypto.beomz.com &rarr;</p>
               </div>
             </motion.a>
           </FadeIn>
@@ -268,7 +268,7 @@ export default function HomePage() {
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
             {PHASES.map((p, i) => (
-              <GlowCard key={p.phase} className="p-6 text-center" glowColor={i < 2 ? "amber" : "purple"}>
+              <GlowCard key={p.phase} className="p-6 text-center" glowColor="amber">
                 <p className="text-sm text-gray-500">Phase {p.phase}</p>
                 <motion.p
                   className="text-2xl font-bold text-white mt-2"
@@ -304,7 +304,7 @@ export default function HomePage() {
               <GlowCard
                 key={tier.name}
                 className="p-6"
-                glowColor={tier.color === "#F97316" ? "amber" : "purple"}
+                glowColor="amber"
               >
                 <div className="text-center mb-4">
                   <motion.div
@@ -321,7 +321,7 @@ export default function HomePage() {
                   <p className="text-xs text-gray-600">$BEOMZ required</p>
                 </div>
 
-                <div className="space-y-3 border-t border-[#222] pt-4">
+                <div className="space-y-3 border-t border-white/[0.08] pt-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Build</span>
                     <span className="text-gray-300">{tier.buildDiscount} off</span>
@@ -365,7 +365,7 @@ export default function HomePage() {
         <FadeIn delay={0.1}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
             {TIERS.map((tier, i) => (
-              <GlowCard key={tier.name} className="p-6 text-center" glowColor={tier.color === "#F97316" ? "amber" : "purple"}>
+              <GlowCard key={tier.name} className="p-6 text-center" glowColor="amber">
                 <p className="text-sm font-semibold" style={{ color: tier.color }}>
                   {tier.name}
                 </p>
@@ -384,7 +384,7 @@ export default function HomePage() {
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
+          <div className="mt-8 bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/3 to-transparent" />
             <p className="text-sm text-gray-400 relative z-10">
               <span className="text-white font-semibold">Example:</span> A Whale with 10 referrals on Pro ($49/mo) earns{" "}
@@ -422,8 +422,8 @@ export default function HomePage() {
                 ),
                 title: "Sentinel+ Voting",
                 desc: "Sentinel and above holders vote on any acquisition or wind-down.",
-                color: "purple" as const,
-                iconColor: "#534AB7",
+                color: "amber" as const,
+                iconColor: "#F97316",
               },
               {
                 icon: (
@@ -452,7 +452,7 @@ export default function HomePage() {
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <div className="mt-8 bg-[#111]/50 border border-[#222] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
+          <div className="mt-8 bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 max-w-2xl mx-auto backdrop-blur-sm relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/3 to-transparent" />
             <p className="text-gray-400 text-sm relative z-10">
               No other AI token has these protections. Check our contract. Then check theirs.
@@ -515,7 +515,7 @@ export default function HomePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Token Distribution</h2>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="max-w-3xl mx-auto bg-[#111]/50 border border-[#222] rounded-2xl p-8 backdrop-blur-sm">
+          <div className="max-w-3xl mx-auto bg-white/[0.04] border border-white/[0.08] rounded-2xl p-8 backdrop-blur-sm">
             <TokenDistributionChart />
           </div>
           <p className="text-center text-gray-500 text-sm mt-8">
@@ -542,7 +542,7 @@ export default function HomePage() {
                 href={`${BASESCAN_URL}/${addr}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between bg-[#111] border border-[#222] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
+                className="flex items-center justify-between bg-white/[0.04] border border-white/[0.08] rounded-2xl p-4 hover:border-[#333] transition-all duration-300 group relative overflow-hidden"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -585,10 +585,10 @@ export default function HomePage() {
       <section id="waitlist" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
         <FloatingParticles count={20} />
         <FadeIn>
-          <div className="bg-gradient-to-br from-[#F97316]/5 via-[#111] to-[#534AB7]/5 border border-[#222] rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
+          <div className="bg-gradient-to-br from-[#F97316]/5 via-white/[0.04] to-[#EA580C]/5 border border-white/[0.08] rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#F97316]/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#534AB7]/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#F97316]/5 rounded-full blur-3xl" />
 
             <div className="relative z-10">
               <motion.h2
@@ -598,7 +598,7 @@ export default function HomePage() {
                 viewport={{ once: true }}
               >
                 Get notified when{" "}
-                <span className="bg-gradient-to-r from-[#F97316] to-[#534AB7] bg-clip-text text-transparent">
+                <span className="text-[#F97316]">
                   $BEOMZ
                 </span>{" "}
                 launches

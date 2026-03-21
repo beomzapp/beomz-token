@@ -94,7 +94,7 @@ export default function RoadmapPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <FadeIn>
             <h1 className="text-4xl md:text-5xl font-bold text-center">
-              <span className="bg-gradient-to-r from-[#F97316] via-[#D98B4A] to-[#534AB7] bg-clip-text text-transparent text-shimmer bg-[length:200%_auto]">
+              <span className="text-[#F97316]">
                 Roadmap
               </span>
             </h1>
@@ -115,7 +115,7 @@ export default function RoadmapPage() {
             <motion.div
               className="absolute left-6 top-0 bottom-0 w-px"
               style={{
-                background: "linear-gradient(to bottom, #F97316, #534AB7, transparent)",
+                background: "linear-gradient(to bottom, #F97316, #EA580C, transparent)",
               }}
               initial={{ height: 0 }}
               whileInView={{ height: "100%" }}
@@ -137,10 +137,10 @@ export default function RoadmapPage() {
                   <motion.div
                     className={`w-12 h-12 rounded-xl shrink-0 flex items-center justify-center z-10 ${
                       item.highlight
-                        ? "bg-gradient-to-br from-[#F97316] to-[#534AB7]"
+                        ? "bg-[#F97316]"
                         : item.done
                           ? "bg-green-500/20 border border-green-500/30"
-                          : "bg-[#111] border border-[#222]"
+                          : "bg-white/[0.04] border border-white/[0.08]"
                     }`}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
@@ -175,7 +175,7 @@ export default function RoadmapPage() {
                           ? "bg-green-500/10 text-green-400 border border-green-500/20"
                           : item.highlight
                             ? "bg-[#F97316]/10 text-[#F97316] border border-[#F97316]/20"
-                            : "bg-[#0a0a0a] text-gray-500 border border-[#222]"
+                            : "bg-[#0a0a0a] text-gray-500 border border-white/[0.08]"
                       }`}>
                         {item.date}
                       </span>
@@ -216,9 +216,9 @@ export default function RoadmapPage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <GlowCard className="p-6" glowColor={i % 2 === 0 ? "amber" : "purple"}>
+                <GlowCard className="p-6" glowColor="amber">
                   <motion.div
-                    className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#F97316]/10 to-[#534AB7]/10 border border-[#222] flex items-center justify-center mb-3"
+                    className="w-10 h-10 rounded-lg bg-[#F97316]/10 border border-white/[0.08] flex items-center justify-center mb-3"
                     whileHover={{ rotate: 10 }}
                   >
                     <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

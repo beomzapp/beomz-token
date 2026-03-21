@@ -12,12 +12,12 @@ export default function AnimatedWaterfall() {
       <div className="flex flex-col items-center gap-0">
         {/* Revenue source */}
         <motion.div
-          className="bg-[#111] border border-[#222] rounded-2xl p-6 w-full text-center relative overflow-hidden"
+          className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 w-full text-center relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/5 to-[#534AB7]/5" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F97316]/5 to-[#EA580C]/5" />
           <div className="relative">
             <p className="text-sm text-gray-500">All Product Revenue</p>
             <p className="text-lg font-bold text-white mt-1">Beomz Build + Beomz Crypto</p>
@@ -55,7 +55,7 @@ export default function AnimatedWaterfall() {
 
         {/* Treasury */}
         <motion.div
-          className="bg-[#111] border border-[#F97316]/20 rounded-2xl p-6 w-full text-center relative overflow-hidden"
+          className="bg-white/[0.04] border border-[#F97316]/20 rounded-2xl p-6 w-full text-center relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -118,7 +118,7 @@ export default function AnimatedWaterfall() {
             animate={isInView ? { opacity: 1 } : {}}
           >
             <motion.div
-              className="w-px bg-[#534AB7]/30 mx-auto"
+              className="w-px bg-[#F97316]/30 mx-auto"
               initial={{ height: 0 }}
               animate={isInView ? { height: "100%" } : {}}
               transition={{ duration: 0.5, delay: 0.8 }}
@@ -149,14 +149,14 @@ export default function AnimatedWaterfall() {
               pct: "25%",
               label: "Buyback + Burn",
               sub: "Aerodrome DEX",
-              color: "#534AB7",
-              borderColor: "rgba(83,74,183,0.3)",
+              color: "#EA580C",
+              borderColor: "rgba(234,88,12,0.3)",
               delay: 1.2,
             },
           ].map((item) => (
             <motion.div
               key={item.label}
-              className="bg-[#111] rounded-2xl p-5 text-center relative overflow-hidden"
+              className="bg-white/[0.04] rounded-2xl p-5 text-center relative overflow-hidden"
               style={{ border: `1px solid ${item.borderColor}` }}
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}

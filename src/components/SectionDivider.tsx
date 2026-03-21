@@ -12,7 +12,7 @@ export default function SectionDivider() {
       <motion.div
         className="h-px"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(249,115,22,0.3), rgba(83,74,183,0.3), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(249,115,22,0.3), rgba(234,88,12,0.3), transparent)",
         }}
         initial={{ scaleX: 0, opacity: 0 }}
         animate={isInView ? { scaleX: 1, opacity: 1 } : {}}

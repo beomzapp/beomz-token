@@ -38,7 +38,7 @@ export const TIERS = [
     apy: "12%",
     apyNote: "+ USDC weekly",
     affiliate: "10%",
-    color: "#534AB7",
+    color: "#F97316",
   },
   {
     name: "Whale",
@@ -48,7 +48,7 @@ export const TIERS = [
     apy: "15%",
     apyNote: "+ 25% revenue share",
     affiliate: "15%",
-    color: "#534AB7",
+    color: "#F97316",
   },
 ] as const;
 
